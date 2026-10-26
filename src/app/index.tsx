@@ -1,98 +1,112 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, Text, Image, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
+import { useRouter } from 'expo-router';
+import { images } from '@/constants/images';
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+export default function OnboardingScreen() {
+  const router = useRouter();
 
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
+  const handleGetStarted = () => {
+    router.push('/(auth)/signup');
+  };
+
   return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+    <SafeAreaView style={styles.safeArea}>
+      <StatusBar style="dark" />
 
-export default function HomeScreen() {
-  return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
+      {/* Top Header Logo: mascot parrot + "lingo" */}
+      <View className="flex-row items-center justify-center pt-3 pb-1">
+        <Image
+          source={images.mascotLogo}
+          style={styles.logoImage}
+          resizeMode="contain"
+        />
+        <Text className="font-poppins-bold text-[30px] text-[#0D132B] tracking-tight ml-2.5">
+          lingo
+        </Text>
+      </View>
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
+      {/* Headline & Subtitle */}
+      <View className="px-7 mt-6">
+        <Text className="font-poppins-bold text-[34px] leading-[42px] text-[#0D132B]">
+          {'Your AI language\nteacher.'}
+        </Text>
+        <Text className="font-poppins-regular text-[16px] leading-[25px] text-[#4B5563] mt-3">
+          {'Real conversations, personalized\nlessons, anytime, anywhere.'}
+        </Text>
+      </View>
 
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
+      {/* Mascot Illustration with Speech Bubbles */}
+      <View className="flex-1 items-center justify-center px-6 my-2">
+        <Image
+          source={images.onboardingIllustration}
+          style={styles.illustration}
+          resizeMode="contain"
+        />
+      </View>
 
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+      {/* Bottom Action: Get Started Button (Pagination dots omitted per requirements) */}
+      <View className="px-7 pb-8 pt-2">
+        <TouchableOpacity
+          activeOpacity={0.85}
+          onPress={handleGetStarted}
+          className="w-full bg-[#5F41EF] h-[60px] rounded-[24px] flex-row items-center justify-center px-6 relative"
+          style={styles.actionButtonShadow}
+        >
+          <Text className="font-poppins-bold text-[18px] text-white">
+            Get Started
+          </Text>
+          <View className="absolute right-6">
+            <Image
+              source={images.chevronRight}
+              style={styles.chevronIcon}
+              resizeMode="contain"
+            />
+          </View>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
   safeArea: {
     flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
+    backgroundColor: '#FFFFFF',
   },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
+  logoImage: {
+    width: 36,
+    height: 38,
   },
-  title: {
-    textAlign: 'center',
+  illustration: {
+    width: '100%',
+    height: '100%',
+    maxWidth: 360,
+    maxHeight: 380,
   },
-  code: {
-    textTransform: 'uppercase',
+  chevronIcon: {
+    width: 12,
+    height: 20,
   },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
+  actionButtonShadow: {
+    ...Platform.select({
+      ios: {
+        shadowColor: '#5F41EF',
+        shadowOffset: { width: 0, height: 8 },
+        shadowOpacity: 0.28,
+        shadowRadius: 16,
+      },
+      android: {
+        elevation: 8,
+      },
+      default: {
+        shadowColor: '#5F41EF',
+        shadowOffset: { width: 0, height: 8 },
+        shadowOpacity: 0.28,
+        shadowRadius: 16,
+      },
+    }),
   },
 });

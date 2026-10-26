@@ -1,0 +1,289 @@
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css";
+
+@import "nativewind/theme";
+
+/* ==========================================================================
+   DESIGN TOKENS (from 01-design-system.jpg)
+   ========================================================================== */
+@theme {
+  /* --- Primary Colors --- */
+  --color-lingo-purple: #6C4EF5;
+  --color-lingo-deep-purple: #5B3BF6;
+  --color-lingo-blue: #4D8BFF;
+  --color-lingo-green: #21C16B;
+
+  --color-primary-purple: #6C4EF5;
+  --color-primary-deep-purple: #5B3BF6;
+  --color-primary-blue: #4D8BFF;
+  --color-primary-green: #21C16B;
+
+  /* --- Semantic Colors --- */
+  --color-success: #21C16B;
+  --color-warning: #FFCB00;
+  --color-streak: #FF8A00;
+  --color-error: #FF4D4F;
+  --color-info: #4D8BFF;
+
+  /* --- Neutrals --- */
+  --color-text-primary: #0D132B;
+  --color-text-secondary: #6B7380;
+  --color-border: #E5E7EB;
+  --color-surface: #F6F7FB;
+  --color-background: #FFFFFF;
+
+  /* --- Fonts (Poppins) --- */
+  --font-poppins: "Poppins-Regular";
+  --font-poppins-regular: "Poppins-Regular";
+  --font-poppins-medium: "Poppins-Medium";
+  --font-poppins-semibold: "Poppins-SemiBold";
+  --font-poppins-bold: "Poppins-Bold";
+}
+
+/* ==========================================================================
+   REUSABLE BEM UTILITIES
+   ========================================================================== */
+
+/* --- Font Family Utilities --- */
+@utility font-poppins-regular {
+  font-family: Poppins-Regular;
+}
+@utility font-poppins-medium {
+  font-family: Poppins-Medium;
+}
+@utility font-poppins-semibold {
+  font-family: Poppins-SemiBold;
+}
+@utility font-poppins-bold {
+  font-family: Poppins-Bold;
+}
+
+/* --- Typography Scale (BEM) --- */
+@utility typography__h1 {
+  font-family: Poppins-Bold;
+  font-size: 32px;
+  line-height: 38.4px;
+  color: #0D132B;
+}
+
+@utility typography__h2 {
+  font-family: Poppins-SemiBold;
+  font-size: 24px;
+  line-height: 31.2px;
+  color: #0D132B;
+}
+
+@utility typography__h3 {
+  font-family: Poppins-SemiBold;
+  font-size: 20px;
+  line-height: 26px;
+  color: #0D132B;
+}
+
+@utility typography__h4 {
+  font-family: Poppins-Medium;
+  font-size: 16px;
+  line-height: 22.4px;
+  color: #0D132B;
+}
+
+@utility typography__body-large {
+  font-family: Poppins-Regular;
+  font-size: 16px;
+  line-height: 25.6px;
+  color: #0D132B;
+}
+
+@utility typography__body-medium {
+  font-family: Poppins-Regular;
+  font-size: 14px;
+  line-height: 22.4px;
+  color: #0D132B;
+}
+
+@utility typography__body-small {
+  font-family: Poppins-Regular;
+  font-size: 13px;
+  line-height: 20.8px;
+  color: #6B7380;
+}
+
+@utility typography__caption {
+  font-family: Poppins-Regular;
+  font-size: 11px;
+  line-height: 15.4px;
+  color: #6B7380;
+}
+
+/* --- Card Component Utilities (BEM) --- */
+@utility card {
+  background-color: #FFFFFF;
+  border-radius: 20px;
+  border-width: 1px;
+  border-color: #E5E7EB;
+  padding: 20px;
+}
+
+@utility card--surface {
+  background-color: #F6F7FB;
+  border-radius: 20px;
+  border-width: 1px;
+  border-color: #E5E7EB;
+  padding: 20px;
+}
+
+@utility card--elevated {
+  background-color: #FFFFFF;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 14px rgba(13, 19, 43, 0.05);
+}
+
+@utility card__header {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom-width: 1px;
+  border-bottom-color: #E5E7EB;
+}
+
+@utility card__title {
+  font-family: Poppins-Bold;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #5B3BF6;
+}
+
+/* --- Button Component Utilities (BEM) --- */
+@utility btn {
+  border-radius: 16px;
+  padding-vertical: 14px;
+  padding-horizontal: 20px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+@utility btn--primary {
+  background-color: #6C4EF5;
+}
+
+@utility btn--deep-purple {
+  background-color: #5B3BF6;
+}
+
+@utility btn--action {
+  background-color: #5F41EF;
+  border-radius: 24px;
+  height: 60px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-horizontal: 24px;
+  position: relative;
+}
+
+@utility btn--blue {
+  background-color: #4D8BFF;
+}
+
+@utility btn--green {
+  background-color: #21C16B;
+}
+
+@utility btn--surface {
+  background-color: #F6F7FB;
+  border-width: 1px;
+  border-color: #E5E7EB;
+}
+
+@utility btn__text {
+  font-family: Poppins-SemiBold;
+  font-size: 16px;
+  color: #FFFFFF;
+}
+
+@utility btn__text--surface {
+  font-family: Poppins-SemiBold;
+  font-size: 16px;
+  color: #0D132B;
+}
+
+/* --- Badge Component Utilities (BEM) --- */
+@utility badge {
+  border-radius: 9999px;
+  padding-horizontal: 12px;
+  padding-vertical: 6px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+@utility badge--streak {
+  background-color: #FF8A00;
+}
+
+@utility badge--success {
+  background-color: #21C16B;
+}
+
+@utility badge--warning {
+  background-color: #FFCB00;
+}
+
+@utility badge--info {
+  background-color: #4D8BFF;
+}
+
+@utility badge--error {
+  background-color: #FF4D4F;
+}
+
+@utility badge--surface {
+  background-color: #F6F7FB;
+  border-width: 1px;
+  border-color: #E5E7EB;
+}
+
+@utility badge__text {
+  font-family: Poppins-SemiBold;
+  font-size: 12px;
+  color: #FFFFFF;
+}
+
+@utility badge__text--surface {
+  font-family: Poppins-Medium;
+  font-size: 12px;
+  color: #0D132B;
+}
+
+/* --- Swatch Component Utilities (BEM) --- */
+@utility swatch {
+  align-items: center;
+}
+
+@utility swatch__preview {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  margin-bottom: 8px;
+}
+
+@utility swatch__label {
+  font-family: Poppins-SemiBold;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #6B7380;
+  text-align: center;
+}
+
+@utility swatch__hex {
+  font-family: Poppins-Regular;
+  font-size: 11px;
+  color: #0D132B;
+  text-align: center;
+}
